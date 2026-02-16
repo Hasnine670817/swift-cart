@@ -1,0 +1,28 @@
+
+
+body {
+    font-family: "Poppins", sans-serif;
+    color: #18181B;
+}
+
+.tab-btn.active {
+    background-color: #422AD5 !important;
+    color: white !important;
+}
+
+a {
+    transition: 0.3s all ease-in-out;
+}
+
+.container {
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px !important;
+    }
+}
+
+
