@@ -4,7 +4,10 @@ let allCards = [];
 const loadProducts = () => {
     fetch("https://fakestoreapi.com/products")
     .then(res => res.json())
-    .then(data => displayProducts(data.slice(0, 3)))
+    .then(data => {
+        allCards = data;
+        displayProducts(data.slice(0, 3))
+    })
     .catch(error => console.error(error))
 }
 
@@ -115,13 +118,28 @@ const handleCategoryBtn = (category, clickedBtn) => {
     // add active styles to clicked one
     clickedBtn.classList.add("active-category", "border-0", "bg-[#4F39F6]", "text-white");
 
-    // filter products
-    if (category === "All") {
-        displayProducts(allCards);
-    } else {
-        const filtered = allCards.filter(card => card.category === category);
+    const trendingContainer = document.querySelector(".trending__container");
+    if (!trendingContainer) return;
+
+    // 1️⃣ show loading
+    trendingContainer.innerHTML = `
+        <div class="h-[60vh] flex items-center justify-center col-span-3">
+            <span class="loading loading-bars loading-xl bg-[#4F39F6]"></span>
+        </div>
+    `;
+
+    setTimeout(() => {
+        // filter products
+        let filtered;
+        if (category === "All") {
+            filtered = allCards;
+        } else {
+            filtered = allCards.filter(card => card.category === category);
+        }
+
+        // 3️⃣ display filtered products
         displayProducts(filtered);
-    }
+    }, 500);
 }
 
 
@@ -132,7 +150,7 @@ const handleCardDetails = (id) => {
     if (!singleCard) return;
 
     const modal = document.getElementById("card__details__modal");
-    const modalBox = modal.querySelector(".modal-box");
+    const modalBox = document.getElementById("modal_box");
     modalBox.innerHTML = "";
 
     // Create content container
@@ -144,7 +162,7 @@ const handleCardDetails = (id) => {
             <i class="fa-solid fa-xmark"></i>
         </button>
 
-        <h3 class="text-xl font-bold text-gray-800 mb-3">${singleCard.title}</h3>
+        <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-3">${singleCard.title}</h3>
 
         <figure class="bg-[#F3F4F6] p-4 rounded-xl mb-4">
             <img src="${singleCard.image}" alt="${singleCard.title}" class="h-48 mx-auto object-contain">
@@ -161,11 +179,11 @@ const handleCardDetails = (id) => {
         </div>
 
         <div class="flex items-center gap-3">
-            <button class="flex-1 btn bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg transition">
-                <i class="fa-solid fa-cart-plus mr-2"></i> Add to Cart
+            <button class="flex-1 text-xs sm:text-base btn border-0 bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg transition">
+                <i class="fa-solid fa-cart-plus mr-1"></i> Add to Cart
             </button>
-            <button class="flex-1 btn bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg transition">
-                <i class="fa-solid fa-bag-shopping mr-2"></i> Buy Now
+            <button class="flex-1 text-xs sm:text-base btn border-0 bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg transition">
+                <i class="fa-solid fa-bag-shopping mr-1"></i> Buy Now
             </button>
         </div>
     `;
