@@ -1,25 +1,35 @@
-
 let allCards = [];
 
-// load all products
+// load all products (Home page)
 const loadProducts = () => {
+    fetch("https://fakestoreapi.com/products")
+    .then(res => res.json())
+    .then(data => displayProducts(data.slice(0, 3)))
+    .catch(error => console.error(error))
+}
+
+// load all products (Products page)
+const loadProducts2 = () => {
     fetch("https://fakestoreapi.com/products")
     .then(res => res.json())
     .then(data => {
         allCards = data;
-        displayProducts(allCards)
+        displayProducts(allCards);
+        displayCategoryBtn();
     })
     .catch(error => console.error(error))
 }
 
 // display all products
-const displayProducts = (products) => {
+const displayProducts = (products, limit = null) => {
     console.log(products);
     const trendingContainer = document.querySelector(".trending__container");
+    if (!trendingContainer) return;
+    trendingContainer.innerHTML = "";
 
-    const sliceProducts = products.slice(0, 3);
+    const visibleProducts = limit ? products.slice(0, limit) : products;
     
-    for (let product of sliceProducts) {
+    for (let product of visibleProducts) {
         const div = document.createElement("div");
         div.innerHTML = `
             <div class="bg-white rounded-2xl shadow-sm hover:shadow-lg transition flex flex-col">
@@ -58,4 +68,37 @@ const displayProducts = (products) => {
     }
 }
 
-loadProducts();
+
+// for all category-btns
+const displayCategoryBtn = () => {
+    const btnContainer = document.getElementById("category-btn-container");
+    btnContainer.innerHTML = "";
+
+    const uniqueCategories = [...new Set(allCards.map(card => card.category))];
+
+    // for create all btn
+    const allBtn = document.createElement("div");
+    allBtn.innerHTML = `
+        <button type="button" class="btn text-black text-sm rounded-3xl">
+            All
+        </button>
+    `;
+    btnContainer.appendChild(allBtn);
+
+    uniqueCategories.forEach((category) => {
+        const formattedCategory = category.charAt(0).toUpperCase() + category.slice(1);
+
+        const div = document.createElement("div");
+        div.innerHTML = `
+            <button type="button" class="btn text-black text-sm rounded-3xl">${formattedCategory}</button>
+        `;
+
+        btnContainer.appendChild(div);
+    })
+}
+
+if (window.location.pathname.includes("products.html")) {
+    loadProducts2(); // products page
+} else {
+    loadProducts(); // home page
+}

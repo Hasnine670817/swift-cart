@@ -31,7 +31,7 @@
     header-area start here
     --------------------------
     -->
-    <header class="header-area sticky top-0 w-full bg-white/50 backdrop-blur-md z-50">
+    <header class="header-area sticky top-0 w-full bg-white/50 backdrop-blur-md z-50 [box-shadow:0_0px_9px_rgba(0,_0,_0,_0.2)]">
 
         <!-- sm - header -->
         <div class="hidden sm:block">
@@ -40,10 +40,10 @@
                     <a href="/" class="text-xl md:text-2xl !font-semibold text-[#4F39F6]">SwiftCart</a>
                     <ul class="text-sm md:text-base font-normal flex gap-5 md:gap-6 items-center">
                         <li>
-                            <a href="/" class="text-[#4F39F6]">Home</a>
+                            <a href="/" class="hover:text-[#4F39F6]">Home</a>
                         </li>
                         <li>
-                            <a href="products.html" class="hover:text-[#4F39F6]">Products</a>
+                            <a href="products.html" class="text-[#4F39F6]">Products</a>
                         </li>
                         <li>
                             <a href="#" class="hover:text-[#4F39F6]">About</a>
@@ -87,10 +87,10 @@
                                     <!-- Sidebar content here -->
                                     <ul>
                                         <li>
-                                            <a href="/" class="text-[#4F39F6] bg-slate-300">Home</a>
+                                            <a href="/" class="hover:text-[#4F39F6] bg-slate-300">Home</a>
                                         </li>
                                         <li>
-                                            <a href="#products.html" class="hover:text-[#4F39F6]">Products</a>
+                                            <a href="#products.html" class="text-[#4F39F6]">Products</a>
                                         </li>
                                         <li>
                                             <a href="#" class="hover:text-[#4F39F6]">About</a>
@@ -114,7 +114,30 @@
     -->
 
 
-    
+    <!-- 
+    ---------------------------
+    products-area start here
+    ---------------------------
+    -->
+    <section class="products-area py-10 md:py-16">
+        <div class="container">
+            <!-- Heading -->
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-3 text-center">Our Products</h2>
+
+            <!-- category-btns -->
+            <div class="category-btn flex flex-wrap gap-3 items-center justify-center mt-6 mb-10" id="category-btn-container">
+
+            </div>
+
+            <!-- trending__container -->
+            <div class="trending__container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </div>
+    </section>
+    <!-- 
+    ---------------------------
+    products-area end here
+    ---------------------------
+    -->
 
 
 
