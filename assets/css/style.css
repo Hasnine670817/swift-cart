@@ -3,6 +3,13 @@
 body {
     font-family: "Poppins", sans-serif;
     color: #18181B;
+    font-weight: 400;
+}
+
+p,
+a,
+button {
+    font-weight: 400;
 }
 
 .tab-btn.active {
@@ -17,6 +24,12 @@ a {
 .container {
     margin: 0 auto;
     padding: 0 20px;
+}
+
+@media (min-width: 768px) {
+    .container {
+        padding: 0 40px;
+    }
 }
 
 @media (min-width: 1200px) {
